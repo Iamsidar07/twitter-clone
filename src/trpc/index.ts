@@ -5,6 +5,7 @@ import z from "zod";
 import bcrypt from "bcrypt";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { INFINITE_QUERY_LIMIT } from "@/config/inifiteQuery";
 export const appRouter = router({
   currentUser: publicProcedure.query(async () => {
     const session = await getServerSession(authOptions);
@@ -113,15 +114,24 @@ export const appRouter = router({
       return updatedUser;
     }),
   getPosts: publicProcedure
-    .input(z.object({ userId: z.string().nullish() }))
+    .input(
+      z.object({
+        userId: z.string().nullish(),
+        cursor: z.string(),
+        limit: z.number().min(1).max(100).nullish(),
+      }),
+    )
     .query(async ({ input }) => {
-      const { userId } = input;
+      const { userId, cursor } = input;
+      const limit = input.limit ?? INFINITE_QUERY_LIMIT;
       let posts;
       if (userId) {
         posts = await db.post.findMany({
           where: {
             userId,
           },
+          take: limit + 1,
+          cursor: cursor ? { id: cursor } : undefined,
           include: {
             user: true,
             comments: true,
@@ -136,13 +146,20 @@ export const appRouter = router({
             user: true,
             comments: true,
           },
+          take: limit + 1,
+          cursor: cursor ? { id: cursor } : undefined,
           orderBy: {
             createdAt: "desc",
           },
         });
       }
+      let nextCursor: string | undefined = undefined;
+      if (posts?.length > limit) {
+        const lastPost = posts[posts.length - 1];
+        nextCursor = lastPost.id;
+      }
 
-      return posts;
+      return { posts, nextCursor };
     }),
   getPost: publicProcedure
     .input(z.object({ postId: z.string() }))
@@ -380,28 +397,30 @@ export const appRouter = router({
       if (!userId) throw new TRPCError({ code: "UNAUTHORIZED" });
       const post = await db.post.findUnique({
         where: {
-          id: postId
-        }
-      })
+          id: postId,
+        },
+      });
       const bookmarkIds = [...(post?.bookmarkIds || [])];
-      const hasBookmarked = bookmarkIds.includes(userId)
+      const hasBookmarked = bookmarkIds.includes(userId);
       let updatedBookmarkIds;
       let bookmark;
       if (hasBookmarked) {
-        updatedBookmarkIds = bookmarkIds.filter((bookmarkId) => bookmarkId !== userId);
+        updatedBookmarkIds = bookmarkIds.filter(
+          (bookmarkId) => bookmarkId !== userId,
+        );
         // remove bookmark
 
         const currentBookmark = await db.bookmark.findFirst({
           where: {
             userId,
-            postId
-          }
-        })
+            postId,
+          },
+        });
         await db.bookmark.delete({
           where: {
-            id: currentBookmark?.id
-          }
-        })
+            id: currentBookmark?.id,
+          },
+        });
       } else {
         updatedBookmarkIds = [...bookmarkIds, userId];
         bookmark = await db.bookmark.create({
@@ -416,8 +435,8 @@ export const appRouter = router({
           id: postId,
         },
         data: {
-          bookmarkIds: updatedBookmarkIds
-        }
+          bookmarkIds: updatedBookmarkIds,
+        },
       });
 
       return bookmark;
@@ -435,7 +454,7 @@ export const appRouter = router({
           include: {
             comments: true,
             user: true,
-          }
+          },
         },
       },
       orderBy: {

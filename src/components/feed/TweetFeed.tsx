@@ -1,43 +1,45 @@
 "use client";
 import { trpc } from "@/app/_trpc/client";
-import { HeartIcon, Loader, MessageCircle } from "lucide-react";
-import React, { MouseEventHandler, useCallback } from "react";
+import { Loader } from "lucide-react";
+import React, { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
-import Image from "next/image";
-import { formatDistanceToNowStrict } from "date-fns";
-import ImageAvatar from "../ImageAvatar";
-import { useRouter } from "next/navigation";
 import TweetItem from "./TweetItem";
+import { INFINITE_QUERY_LIMIT } from "@/config/inifiteQuery";
+import { useIntersection } from "@mantine/hooks";
 interface TweetFeedProps {
   userId?: string;
 }
 const TweetFeed: React.FC<TweetFeedProps> = ({ userId }) => {
-  const router = useRouter()
+  const lastPostRef = useRef<HTMLDivElement | null>(null);
+  const { ref, entry } = useIntersection({
+    root: lastPostRef.current,
+    threshold: 1,
+  });
+
   const {
-    data: posts,
+    data,
     isLoading,
+    fetchNextPage,
     error,
     refetch: refetchPosts,
-  } = trpc.getPosts.useQuery({ userId });
+  } = trpc.getPosts.useInfiniteQuery(
+    {
+      userId,
+      limit: INFINITE_QUERY_LIMIT,
+    },
+    {
+      getNextPageParam: (lastPage) => lastPage?.nextCursor,
+      keepPreviousData: true,
+    },
+  );
 
-
-  const handleLikeClick = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    event.stopPropagation()
-    // Do logic for liking post
-    console.log("hello like")
-  }, []);
-
-  const handleCommentOnPost = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    // Do logic for comments on post
-    event.stopPropagation()
-    console.log("comment")
-  }, []);
-
-  const handleClickPost = useCallback((postId: string) => {
-    if (postId) {
-      router.push(`/post/${postId}`)
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      fetchNextPage();
     }
-  }, [router])
+  }, [entry, fetchNextPage]);
+
+  const posts = data?.pages.flatMap((page) => page.posts);
 
   if (error) {
     toast.error("Failed to load your feed.");
@@ -60,21 +62,43 @@ const TweetFeed: React.FC<TweetFeedProps> = ({ userId }) => {
       {posts?.length === 0 ? (
         <h1 className="text-center font-bold text-lg mt-12">Feed is empty</h1>
       ) : (
-        posts?.map((post) => (
-          <TweetItem
-            body={post.body}
-            key={post.id}
-            comments={post.comments.length}
-            postId={post.id}
-            userId={post.user.id}
-            createdAt={post.createdAt}
-            likedIds={post.likedIds}
-            name={post.user.name}
-            profileImage={post.user.profileImage as string}
-            username={post.user.username}
-            imageContent={post.imageContent as string}
-          />
-        ))
+        posts?.map((post, i) => {
+          const isLastPost = i === posts.length - 1;
+          if (isLastPost) {
+            return (
+              <TweetItem
+                body={post.body}
+                key={post.id}
+                comments={post.comments.length}
+                postId={post.id}
+                userId={post.user.id}
+                createdAt={post.createdAt}
+                likedIds={post.likedIds}
+                name={post.user.name}
+                profileImage={post.user.profileImage as string}
+                username={post.user.username}
+                imageContent={post.imageContent as string}
+                ref={ref}
+              />
+            );
+          }
+
+          return (
+            <TweetItem
+              body={post.body}
+              key={post.id}
+              comments={post.comments.length}
+              postId={post.id}
+              userId={post.user.id}
+              createdAt={post.createdAt}
+              likedIds={post.likedIds}
+              name={post.user.name}
+              profileImage={post.user.profileImage as string}
+              username={post.user.username}
+              imageContent={post.imageContent as string}
+            />
+          );
+        })
       )}
     </div>
   );

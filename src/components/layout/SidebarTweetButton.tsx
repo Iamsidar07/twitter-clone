@@ -25,7 +25,7 @@ const SidebarTweetButton = () => {
       </div>
       <Button className={buttonVariants({
         size: "lg",
-        className: "bg-primary w-full rounded-full dark:hover:bg-dark2"
+        className: "hidden lg:block bg-primary w-full rounded-full dark:hover:bg-dark2"
       })}>
         Tweet
       </Button>
