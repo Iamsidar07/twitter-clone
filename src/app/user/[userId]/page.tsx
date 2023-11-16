@@ -3,8 +3,13 @@ import Header from "@/components/layout/Header";
 import UserBio from "@/components/user/UserBio";
 import UserHero from "@/components/user/UserHero";
 import { db } from "@/db";
+import { constructMetadata } from "@/lib/utils";
+import { Metadata } from "next";
 import React from "react";
 
+export const metadata: Metadata = constructMetadata({
+  title: "Profile",
+});
 interface ProfilePageProps {
   params: {
     userId: string;

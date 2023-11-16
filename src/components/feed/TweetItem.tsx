@@ -100,7 +100,6 @@ const TweetItem = forwardRef<HTMLDivElement, TweetItemProps>(
           </p>
         </div>
         <div className="flex flex-col w-full ml-1.5 flex-1 ">
-
           <p className="py-2">{body}</p>
 
           {imageContent ? (
@@ -120,8 +119,9 @@ const TweetItem = forwardRef<HTMLDivElement, TweetItemProps>(
             </div>
             <div
               onClick={handleBookmarkPost}
-              className={`flex items-center gap-x-1 group hover:text-green-600 ${hasBookmarked() ? " text-green-500" : "text-gray-400 "
-                } ${isSavingToBookmark ? "opacity-70" : ""}`}
+              className={`flex items-center gap-x-1 group hover:text-green-600 ${
+                hasBookmarked() ? " text-green-500" : "text-gray-400 "
+              } ${isSavingToBookmark ? "opacity-70" : ""}`}
             >
               <Bookmark
                 className={`cursor-pointer w-10 h-10 rounded-full p-2 group-hover:bg-pink-100 dark:group-hover:bg-dark2 `}
@@ -130,10 +130,14 @@ const TweetItem = forwardRef<HTMLDivElement, TweetItemProps>(
             </div>
             <div
               onClick={handleLikeClick}
-              className={`flex items-center gap-1 group hover:text-blue-600 ${isAllreadyLikedPost ? " text-blue-600" : "text-gray-400"}`}
+              className={`flex items-center gap-1 group hover:text-blue-600 ${
+                isAllreadyLikedPost ? " text-blue-600" : "text-gray-400"
+              }`}
             >
               <HeartIcon
-                className={`cursor-pointer w-10 h-10 rounded-full p-2 group-hover:bg-blue-100 dark:group-hover:bg-dark2 ${isLoading ? "opacity-30" : ""}`}
+                className={`cursor-pointer w-10 h-10 rounded-full p-2 group-hover:bg-blue-100 dark:group-hover:bg-dark2 ${
+                  isLoading ? "opacity-30" : ""
+                }`}
               />
               <span>{likedIds.length}</span>
             </div>

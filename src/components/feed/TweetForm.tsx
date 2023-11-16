@@ -61,8 +61,9 @@ const TweetForm = () => {
       <div className="flex flex-col flex-1 ml-1.5">
         <textarea
           className="border-none outline-none px-2 py-3 h-full w-full resize-none min-h-[60px] bg-transparent"
-          placeholder={`${user?.name ? `Hey ${user.name}!` : ""
-            } What's happening?`}
+          placeholder={`${
+            user?.name ? `Hey ${user.name}!` : ""
+          } What's happening?`}
           spellCheck={false}
           rows={3}
           maxLength={255}
@@ -79,11 +80,7 @@ const TweetForm = () => {
               onChange={(image) => setImage(image)}
             />
           </div>
-          <Button
-            type="submit"
-            className="rounded-full"
-            disabled={isLoading}
-          >
+          <Button type="submit" className="rounded-full" disabled={isLoading}>
             Tweet
           </Button>
         </div>

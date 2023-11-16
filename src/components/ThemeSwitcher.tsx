@@ -4,13 +4,16 @@ import { Sun } from "lucide-react";
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleThemeChange = useCallback((value: string) => {
-    setTheme(value);
-    setIsOpen(false);
-  }, [setTheme]);
+  const handleThemeChange = useCallback(
+    (value: string) => {
+      setTheme(value);
+      setIsOpen(false);
+    },
+    [setTheme],
+  );
 
   // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {

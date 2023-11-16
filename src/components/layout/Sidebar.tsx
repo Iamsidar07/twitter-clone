@@ -1,5 +1,5 @@
 "use client";
-import { Bell, Bookmark, Home, LogIn, LogOut, Save, User } from "lucide-react";
+import { Bell, Bookmark, Home, LogIn, LogOut, User } from "lucide-react";
 import React from "react";
 import SidebarLogo from "./SidebarLogo";
 import SidebarItem from "./SidebarItem";

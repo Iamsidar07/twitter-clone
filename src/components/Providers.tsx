@@ -27,7 +27,7 @@ const Providers = ({
     <SessionProvider session={session}>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
-            {children}
+          {children}
         </QueryClientProvider>
       </trpc.Provider>
     </SessionProvider>

@@ -1,11 +1,10 @@
 "use client";
 import { trpc } from "@/app/_trpc/client";
-import Image from "next/image";
 import React from "react";
 import ImageAvatar from "../ImageAvatar";
 
 const SidebarProfileItem = () => {
-  const { error, data, isLoading } = trpc.currentUser.useQuery();
+  const { data } = trpc.currentUser.useQuery();
   return (
     <>
       <div className="lg:hidden relative h-14 w-14 rounded-full">

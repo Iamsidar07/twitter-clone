@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { ChangeEvent, useCallback, useState } from "react";
 import { Loader, Search } from "lucide-react";
 import useSearchTwitter from "@/hooks/useSearchTwitter";
@@ -6,7 +6,7 @@ import FollowbarItem from "./FollowbarItem";
 
 const Searchbar = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { data: users = [], isLoading, error } = useSearchTwitter(searchValue)
+  const { data: users = [], isLoading } = useSearchTwitter(searchValue);
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
@@ -23,24 +23,26 @@ const Searchbar = () => {
         />
       </div>
       <div>
-        {
-          users?.length > 0 && searchValue ? <div>
-            <h2 className="font-bold text-lg">Search &ldquo; {searchValue} &rdquo;</h2>
+        {users?.length > 0 && searchValue ? (
+          <div>
+            <h2 className="font-bold text-lg">
+              Search &ldquo; {searchValue} &rdquo;
+            </h2>
             <div className="bg-gray-100 dark:bg-dark rounded-lg py-2 my-6 border">
-              {
-                users?.map((user) => (
-                  <FollowbarItem
-                    userId={user.id}
-                    key={user.id}
-                    name={user.name}
-                    profileImage={user.profileImage!}
-                    username={user.username}
-                  />
-                ))
-              }
+              {users?.map((user) => (
+                <FollowbarItem
+                  userId={user.id}
+                  key={user.id}
+                  name={user.name}
+                  profileImage={user.profileImage!}
+                  username={user.username}
+                />
+              ))}
             </div>
-          </div> : isLoading ? <Loader className="w-5 h-5 animate-spin mx-auto" /> : null
-        }
+          </div>
+        ) : isLoading ? (
+          <Loader className="w-5 h-5 animate-spin mx-auto" />
+        ) : null}
       </div>
     </div>
   );
