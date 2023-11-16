@@ -1,3 +1,20 @@
+# Twitter Clone
+
+Live site url [https://twitter-clone-navy-mu.vercel.app/](https://twitter-clone-navy-mu.vercel.app/)
+
+## Tech Stacks
+- Typescript
+- tailwindcss
+- mongodb
+- prisma
+- nextjs
+- next-auth
+- next-theme
+
+### Preview 
+
+![twitter clone preview](/public/preview.png)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
