@@ -45,8 +45,8 @@ export function constructMetadata({
       creator: "@iamsidar07",
     },
     icons,
-    metadataBase: new URL("https://chatty-five-mocha.vercel.app"),
-    themeColor: "#fff",
+    metadataBase: new URL("https://twitter-clone-navy-mu.vercel.app/"),
+    themeColor: "#ffffff, #17202A",
     ...(noIndex && {
       robots: {
         index: false,
