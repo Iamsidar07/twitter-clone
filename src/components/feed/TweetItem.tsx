@@ -76,19 +76,20 @@ const TweetItem = forwardRef<HTMLDivElement, TweetItemProps>(
     if (error) {
       toast.error("Something went wrong!");
     }
+
     return (
       <div
         ref={ref}
         onClick={() => handleClickPost(postId)}
         key={postId}
-        className="flex items-start w-full p-5 border-b last:border-none bg-white dark:bg-dark cursor-pointer"
+        className="flex flex-col items-start w-full px-1.5 py-2.5 lg:p-5 border-b last:border-none bg-white dark:bg-dark cursor-pointer"
       >
-        <ImageAvatar
-          imageUrl={profileImage as string}
-          fallback={name[0]}
-          userId={userId}
-        />
-        <div className="flex flex-col ml-1.5 flex-1">
+        <div className="flex items-center gap-2">
+          <ImageAvatar
+            imageUrl={profileImage as string}
+            fallback={name[0]}
+            userId={userId}
+          />
           <p className="text-gray-500 dark:text-gray-200 flex items-center space-x-2">
             <span className="font-semibold">{name}</span>
             <span className="text-sm hidden md:block">@{username}</span>{" "}
@@ -97,15 +98,20 @@ const TweetItem = forwardRef<HTMLDivElement, TweetItemProps>(
               {formatDistanceToNowStrict(new Date(createdAt))} ago
             </span>
           </p>
+        </div>
+        <div className="flex flex-col w-full ml-1.5 flex-1 ">
+
           <p className="py-2">{body}</p>
+
           {imageContent ? (
-            <Image
-              src={imageContent}
-              alt="twitter media"
-              width={1920}
-              height={1080}
-              className="object-cover rounded-lg border h-72"
-            />
+            <div className="w-[90%] lg:w-full relative  h-44 lg:h-72">
+              <Image
+                src={imageContent}
+                alt="twitter media"
+                fill
+                className="object-cover absolute rounded-lg border lg:h-72"
+              />
+            </div>
           ) : null}
           <div className="flex items-center gap-4 px-4 py-3">
             <div className="flex items-center text-gray-400 gap-1 group hover:text-pink-600">
@@ -114,10 +120,8 @@ const TweetItem = forwardRef<HTMLDivElement, TweetItemProps>(
             </div>
             <div
               onClick={handleBookmarkPost}
-              className={`flex items-center text-gray-400 gap-x-1 group hover:text-green-600 ${
-                hasBookmarked() ? " text-green-500" : ""
-              } ${isSavingToBookmark ? "opacity-70" : ""}
-`}
+              className={`flex items-center gap-x-1 group hover:text-green-600 ${hasBookmarked() ? " text-green-500" : "text-gray-400 "
+                } ${isSavingToBookmark ? "opacity-70" : ""}`}
             >
               <Bookmark
                 className={`cursor-pointer w-10 h-10 rounded-full p-2 group-hover:bg-pink-100 dark:group-hover:bg-dark2 `}
@@ -126,12 +130,10 @@ const TweetItem = forwardRef<HTMLDivElement, TweetItemProps>(
             </div>
             <div
               onClick={handleLikeClick}
-              className="flex items-center text-gray-400 gap-1 group hover:text-blue-600"
+              className={`flex items-center gap-1 group hover:text-blue-600 ${isAllreadyLikedPost ? " text-blue-600" : "text-gray-400"}`}
             >
               <HeartIcon
-                className={`cursor-pointer w-10 h-10 rounded-full p-2 group-hover:bg-blue-100 dark:group-hover:bg-dark2 ${
-                  isAllreadyLikedPost ? "text-blue-600" : ""
-                } ${isLoading ? "opacity-30" : ""}`}
+                className={`cursor-pointer w-10 h-10 rounded-full p-2 group-hover:bg-blue-100 dark:group-hover:bg-dark2 ${isLoading ? "opacity-30" : ""}`}
               />
               <span>{likedIds.length}</span>
             </div>

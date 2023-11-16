@@ -33,7 +33,7 @@ export default async function RootLayout({
             <LoginModal />
             <RegisterModal />
             <EditProfileModal />
-            <div className="container mx-auto xl:px-6 max-w-7xl">
+            <div className="lg:container mx-auto xl:px-6 max-w-7xl">
               <div className="grid grid-cols-4 h-full">
                 <Sidebar />
                 <div className="col-span-3 lg:col-span-2 border-x-[1px]">

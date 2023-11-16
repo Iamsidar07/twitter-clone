@@ -57,10 +57,10 @@ const LoginModal = () => {
 
   const footerContent = (
     <div className="mt-2">
-      <p className="text-gray-500">
+      <p className="text-gray-500 dark:text-gray-300">
         First time using Tweeter?{" "}
         <span
-          className="text-black hover:underline cursor-pointer"
+          className="text-black dark:text-blue-600 hover:underline cursor-pointer"
           onClick={toggle}
         >
           Create an account.

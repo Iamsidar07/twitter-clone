@@ -20,8 +20,8 @@ const SidebarTweetButton = () => {
       onClick={hanldeTweetClick}
       className="text-white hover:text-black cursor-pointer"
     >
-      <div className="relative w-14 h-14 flex items-center mt-4 justify-center p-4 lg:hidden bg-blue-500 rounded-full">
-        <FeatherIcon />
+      <div className="relative w-8 h-8 flex items-center mt-4 justify-center lg:hidden bg-blue-500 rounded-full mx-auto">
+        <FeatherIcon className="absolute"/>
       </div>
       <Button className={buttonVariants({
         size: "lg",

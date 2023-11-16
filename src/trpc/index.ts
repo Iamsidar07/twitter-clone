@@ -117,7 +117,7 @@ export const appRouter = router({
     .input(
       z.object({
         userId: z.string().nullish(),
-        cursor: z.string(),
+        cursor: z.string().nullish(),
         limit: z.number().min(1).max(100).nullish(),
       }),
     )
@@ -464,5 +464,34 @@ export const appRouter = router({
 
     return bookmark;
   }),
+  searchTwitter: publicProcedure
+    .input(
+      z.object({
+        query: z.string(),
+      }),
+    )
+    .query(async ({ input }) => {
+      const { query } = input;
+      const users = await db.user.findMany({
+        where: {
+          name: {
+            contains: query,
+          },
+          username: {
+            contains: query,
+          },
+        },
+        take: 10,
+        select: {
+          name: true,
+          username: true,
+          profileImage: true,
+          followingIds: true,
+          id: true,
+        },
+      });
+      return users;
+    }),
 });
+
 export type AppRouter = typeof appRouter;

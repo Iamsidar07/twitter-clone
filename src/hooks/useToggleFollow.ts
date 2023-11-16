@@ -26,7 +26,6 @@ const useToggleFollow = ({ userId }: UseToggleFollowProps) => {
     () => data?.user?.followingIds.includes(currentUser?.id as string),
     [data?.user?.followingIds, currentUser?.id],
   );
-  console.log(isFollowing(), "isFollowing");
 
   const handleToggleFollow = useCallback(() => {
     if (isLoading) return;

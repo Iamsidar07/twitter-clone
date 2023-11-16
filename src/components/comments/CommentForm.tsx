@@ -27,14 +27,14 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   );
 
   if (error) {
-    console.log({ error });
+    console.log(error);
     toast.error("Something went wrong!");
   }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-start w-full border-b px-2 py-3 bg-white"
+      className="flex items-start w-full border-b px-2 py-3 bg-white dark:bg-dark"
     >
       <ImageAvatar
         imageUrl={user?.profileImage as string}

@@ -20,7 +20,6 @@ const ThemeSwitcher = () => {
   if (!mounted) {
     return null;
   }
-  console.log({ isOpen });
 
   return (
     <div className="absolute right-3">

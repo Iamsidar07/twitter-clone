@@ -16,7 +16,7 @@ const SidebarProfileItem = () => {
           outline={true}
         />
       </div>
-      <div className="hidden lg:flex items-center gap-4 border-[1px] rounded-full px-2 py-1.5 cursor-pointer hover:bg-blue-300 hover:bg-opacity-30 transition">
+      <div className="hidden lg:flex items-center gap-4 border-[1px] rounded-full px-2 py-1.5 cursor-pointer hover:bg-blue-300 dark:hover:bg-dark2 hover:bg-opacity-30 transition">
         <ImageAvatar
           imageUrl={data?.profileImage as string}
           fallback={data?.name[0] as string}

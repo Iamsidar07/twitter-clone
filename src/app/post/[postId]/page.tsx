@@ -47,7 +47,7 @@ const PostDetailPage = ({ params }: PostDetailPage) => {
             post.comments.map((comment) => (
               <div
                 key={comment.id}
-                className="mt-6 flex flex-col gap-1 px-3 py-1.5 border-b last:border-none"
+                className="mt-6 flex flex-col gap-1 p-3 border-b last:border-none"
               >
                 <div className="flex items-center space-x-1">
                   <ImageAvatar
@@ -56,16 +56,18 @@ const PostDetailPage = ({ params }: PostDetailPage) => {
                     userId={comment.user.id}
                     size="sm"
                   />
-                  <span className="font-semibold text-black">
-                    {comment.user.username}
-                  </span>
-                  <span className="text-sm hidden md:block">
-                    @{comment.user.username}
-                  </span>{" "}
-                  <span className="hidden md:block">·</span>
-                  <span className="text-sm hidden md:block">
-                    {formatDistanceToNowStrict(new Date(comment.createdAt))} ago
-                  </span>
+                  <p className="flex items-center space-x-1 text-gray-400 dark:text-gray-300">
+                    <span className="font-semibold">
+                      {comment.user.username}
+                    </span>
+                    <span className="text-sm hidden md:block">
+                      @{comment.user.username}
+                    </span>{" "}
+                    <span className="hidden md:block">·</span>
+                    <span className="text-sm hidden md:block">
+                      {formatDistanceToNowStrict(new Date(comment.createdAt))} ago
+                    </span>
+                  </p>
                 </div>
                 <p className="mt-1">{comment.body}</p>
               </div>

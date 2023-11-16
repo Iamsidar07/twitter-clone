@@ -36,7 +36,11 @@ const FollowbarItem: React.FC<FollowbarItemProps> = ({
           <small className="text-gray-600 text-sm truncate">@{username}</small>
         </div>
       </div>
-      <Button disabled={isLoading} onClick={handleToggleFollow}>
+      <Button
+        className="rounded-full"
+        disabled={isLoading}
+        onClick={handleToggleFollow}
+      >
         {isFollowing ? "Unfollow" : "Follow"}
       </Button>
     </div>

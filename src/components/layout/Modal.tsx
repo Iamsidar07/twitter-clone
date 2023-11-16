@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { Button } from "../ui/button";
-import { ShieldClose } from "lucide-react";
+import { X } from "lucide-react";
 
 interface ModalProps {
   isOpen?: boolean;
@@ -36,15 +36,15 @@ const Modal: React.FC<ModalProps> = ({
   if (!isOpen) return null;
   return (
     <>
-      <div className="flex items-center justify-center overflow-x-hidden overflow-y-scroll fixed inset-0 outline-none focus:outline-none bg-neutral-800/70 z-50 max-h-screen">
-        <div className="relative w-full lg:w-3/6 h-full max-h-[90%] overflow-y-scroll lg:h-auto lg:max-w-3xl mx-auto my-6">
+      <div className="flex items-center justify-center overflow-x-hidden overflow-y-auto fixed inset-0 outline-none focus:outline-none bg-neutral-800/70 dark:bg-dark2/70 z-50 max-h-screen ">
+        <div className="relative w-full lg:w-3/6 h-full max-h-[90%] overflow-y-auto hide-scrollbar lg:h-auto lg:max-w-3xl mx-auto my-6">
           {/* content */}
           <div className="relative h-full lg:h-auto bg-white dark:bg-dark rounded-lg shadow-lg outline-none focus:outline-none flex flex-col w-full">
             {/* header */}
 
             <div className="flex items-center justify-between p-10 rounded-t">
               <h3 className="font-semibold text-lg lg:text-2xl">{title}</h3>
-              <ShieldClose onClick={handleClose} className="cursor-pointer" />
+              <X onClick={handleClose} className="cursor-pointer" />
             </div>
 
             {/* body */}

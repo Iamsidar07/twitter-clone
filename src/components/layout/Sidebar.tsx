@@ -48,8 +48,8 @@ const Sidebar = () => {
     },
   ];
   return (
-    <div className="col-span-1 pr-4 h-screen md:pr-6 sticky top-0 bottom-0">
-      <div className="flex flex-col justify-between h-full pb-6">
+    <div className="w-fit lg:w-full lg:col-span-1 p-0 h-screen md:pr-6 sticky top-0 bottom-0">
+      <div className="flex flex-col items-center lg:items-start justify-between h-full pb-6">
         <div className="space-y-2 lg:w-[250px]">
           <SidebarLogo />
           {icons.map((icon, i) => (

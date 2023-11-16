@@ -39,7 +39,6 @@ const useToggleLike = ({ postId }: UseToggleLike) => {
   if (error) {
     toast.error("Something went wrong!");
   }
-  console.log({ postId }, post?.likedIds);
   return {
     handleToggleLikePost,
     isLoading,

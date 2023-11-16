@@ -46,7 +46,10 @@ const TweetFeed: React.FC<TweetFeedProps> = ({ userId }) => {
     return (
       <h1 className="text-center mt-8">
         Something went wrong!{" "}
-        <span className="font-bold underline" onClick={() => refetchPosts()}>
+        <span
+          className="font-bold underline cursor-pointer"
+          onClick={() => refetchPosts()}
+        >
           try again
         </span>
       </h1>
@@ -79,6 +82,7 @@ const TweetFeed: React.FC<TweetFeedProps> = ({ userId }) => {
                 username={post.user.username}
                 imageContent={post.imageContent as string}
                 ref={ref}
+                bookmarkIds={post.bookmarkIds}
               />
             );
           }
@@ -96,6 +100,7 @@ const TweetFeed: React.FC<TweetFeedProps> = ({ userId }) => {
               profileImage={post.user.profileImage as string}
               username={post.user.username}
               imageContent={post.imageContent as string}
+              bookmarkIds={post.bookmarkIds}
             />
           );
         })

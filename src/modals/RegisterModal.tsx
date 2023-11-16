@@ -79,10 +79,10 @@ const RegisterModal = () => {
 
   const footerContent = (
     <div className="mt-2">
-      <p className="text-gray-500">
+      <p className="text-gray-500 dark:text-gray-300">
         Allready have an account?
         <span
-          className="text-black hover:underline cursor-pointer ml-1"
+          className="text-black dark:text-blue-500 hover:underline cursor-pointer ml-1"
           onClick={toggle}
         >
           login now
