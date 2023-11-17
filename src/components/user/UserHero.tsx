@@ -10,7 +10,7 @@ const UserHero: React.FC<UserHeroProps> = ({ userId }) => {
   const { data } = trpc.getUser.useQuery({ userId });
   return (
     <div className="relative">
-      <div className="relative h-44 bg-gray-500">
+      <div className="relative h-44 bg-gray-500 dark:bg-dark2">
         {data?.user?.coverImage ? (
           <Image
             src={data.user.coverImage}
