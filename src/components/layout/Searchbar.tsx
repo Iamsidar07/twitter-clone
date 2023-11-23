@@ -12,12 +12,13 @@ const Searchbar = () => {
     refetch,
   } = useSearchTwitter(searchValue);
 
-  const debounce = function (fn: any, delay: any) {
+  const debounce = function (this: any, fn: any, delay: any) {
     let timer: any;
+    let context = this;
     return (...args: any) => {
       clearTimeout(timer);
       timer = setTimeout(() => {
-        fn.apply(this, args);
+        fn.apply(context, args);
       }, delay);
       console.log({ timer });
     };
@@ -28,7 +29,7 @@ const Searchbar = () => {
     setSearchValue(value);
     const hello = debounce(() => console.log("hi", searchValue), 300);
     hello();
-  }, []);
+  }, [searchValue]);
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="flex items-center gap-x-3 py-2.5 rounded-full border dark:border-dark bg-white dark:bg-dark2">
