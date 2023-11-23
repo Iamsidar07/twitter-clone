@@ -1,13 +1,10 @@
 "use client";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { format } from "date-fns";
-import React, { useCallback } from "react";
+import React from "react";
 import { Button, buttonVariants } from "../ui/button";
 import { Calendar } from "lucide-react";
 import useEditProfileModal from "@/hooks/useEditProfileModal";
-import { trpc } from "@/app/_trpc/client";
-import toast from "react-hot-toast";
-import useUser from "@/hooks/useUser";
 import useToggleFollow from "@/hooks/useToggleFollow";
 interface UserBioProps {
   userId: string;

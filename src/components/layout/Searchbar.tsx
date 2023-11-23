@@ -6,10 +6,28 @@ import FollowbarItem from "./FollowbarItem";
 
 const Searchbar = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { data: users = [], isLoading } = useSearchTwitter(searchValue);
+  const {
+    data: users = [],
+    isLoading,
+    refetch,
+  } = useSearchTwitter(searchValue);
+
+  const debounce = function (fn: any, delay: any) {
+    let timer: any;
+    return (...args: any) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+      console.log({ timer });
+    };
+  };
+
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
+    const hello = debounce(() => console.log("hi", searchValue), 300);
+    hello();
   }, []);
   return (
     <div className="w-full flex flex-col gap-4">

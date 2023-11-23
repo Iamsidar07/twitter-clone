@@ -10,6 +10,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 const NotificationsFeed = () => {
   const { data: notifications = [], isLoading, error } = useNotifications();
   const { refetch: refetchCurrentUser } = useCurrentUser();
+
   useEffect(() => {
     refetchCurrentUser();
   }, [refetchCurrentUser]);

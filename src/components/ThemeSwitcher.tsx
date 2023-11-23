@@ -34,7 +34,7 @@ const ThemeSwitcher = () => {
           <Sun className="w-5 h-5" />
         </div>
         {isOpen ? (
-          <div className="border rounded-md absolute right-4 top-12  p-2 w-44 bg-white dark:bg-[#17202A]">
+          <div className="border rounded-md absolute right-4 top-12  p-2 w-44 bg-white dark:bg-[#17202A] z-50">
             <p
               className="hover:bg-white/70 dark:hover:bg-dark2 transition-colors px-4 py-2 rounded-md cursor-pointer"
               onClick={() => handleThemeChange("system")}
