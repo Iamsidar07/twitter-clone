@@ -478,6 +478,9 @@ export const appRouter = router({
           name: {
             contains: query,
           },
+          username: {
+            contains: query
+          }
         },
         take: 10,
         select: {
