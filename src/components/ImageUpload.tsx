@@ -6,12 +6,14 @@ interface ImageUploadProps {
   value?: string;
   label: ReactNode;
   disabled?: boolean;
+  showImage?: boolean;
   onChange: (base64: string) => void;
 }
 const ImageUpload: React.FC<ImageUploadProps> = ({
   value,
   label,
   disabled,
+  showImage = true,
   onChange,
 }) => {
   const [base64, setBase64] = useState(value);
@@ -55,7 +57,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       })}
     >
       <input {...getInputProps()} />
-      {base64 ? (
+      {base64 && showImage ? (
         <div className="flex items-center justify-center">
           <Image
             src={base64}

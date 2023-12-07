@@ -27,9 +27,9 @@ const Searchbar = () => {
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
-    const hello = debounce(() => console.log("hi", searchValue), 300);
-    hello();
-  }, [searchValue]);
+    const querySearchResults = debounce(refetch, 300);
+    querySearchResults();
+  }, [refetch]);
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="flex items-center gap-x-3 py-2.5 rounded-full border dark:border-dark bg-white dark:bg-dark2">

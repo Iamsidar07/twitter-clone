@@ -46,7 +46,6 @@ export function constructMetadata({
     },
     icons,
     metadataBase: new URL("https://twitter-clone-navy-mu.vercel.app/"),
-    themeColor: "#ffffff, #17202A",
     ...(noIndex && {
       robots: {
         index: false,

@@ -33,6 +33,7 @@ const TweetFeed: React.FC<TweetFeedProps> = ({ userId }) => {
     },
   );
 
+
   useEffect(() => {
     if (entry?.isIntersecting) {
       fetchNextPage();

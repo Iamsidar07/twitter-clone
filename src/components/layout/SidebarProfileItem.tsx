@@ -15,7 +15,7 @@ const SidebarProfileItem = () => {
           outline={true}
         />
       </div>
-      <div className="hidden lg:flex items-center gap-4 border-[1px] rounded-full px-2 py-1.5 cursor-pointer hover:bg-blue-300 dark:hover:bg-dark2 hover:bg-opacity-30 transition">
+      <div className="hidden lg:flex items-center gap-1.5 border-[1px] rounded-full pl-2 pr-3.5 py-1.5 cursor-pointer hover:bg-blue-300 dark:hover:bg-dark2 hover:bg-opacity-30 transition">
         <ImageAvatar
           imageUrl={data?.profileImage as string}
           fallback={data?.name[0] as string}
@@ -24,7 +24,7 @@ const SidebarProfileItem = () => {
         />
         <div className="hidden lg:flex flex-col w-3/4">
           <p className="font-bold truncate">{data?.name}</p>
-          <small className="text-gray-500 truncate">@{data?.username}</small>
+          <small className="text-gray-500 truncate pr-1.5">@{data?.username}</small>
         </div>
       </div>
     </>
