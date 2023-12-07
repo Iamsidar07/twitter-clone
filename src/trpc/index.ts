@@ -475,12 +475,18 @@ export const appRouter = router({
 
       const users = await db.user.findMany({
         where: {
-          name: {
-            contains: query,
-          },
-          username: {
-            contains: query
-          }
+          OR: [
+            {
+              name: {
+                contains: query,
+              }
+            },
+            {
+              username: {
+                contains: query
+              }
+            }
+          ],
         },
         take: 10,
         select: {
