@@ -473,16 +473,9 @@ export const appRouter = router({
     .query(async ({ input }) => {
       const { query } = input;
 
-      if (!query || query.length === 0) {
-        return []
-      }
-
       const users = await db.user.findMany({
         where: {
           name: {
-            contains: query,
-          },
-          username: {
             contains: query,
           },
         },

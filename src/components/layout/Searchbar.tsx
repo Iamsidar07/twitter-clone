@@ -9,27 +9,12 @@ const Searchbar = () => {
   const {
     data: users = [],
     isLoading,
-    refetch,
   } = useSearchTwitter(searchValue);
-
-  const debounce = function (this: any, fn: any, delay: any) {
-    let timer: any;
-    let context = this;
-    return (...args: any) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        fn.apply(context, args);
-      }, delay);
-      console.log({ timer });
-    };
-  };
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
-    const querySearchResults = debounce(refetch, 300);
-    querySearchResults();
-  }, [refetch]);
+  }, []);
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="flex items-center gap-x-3 py-2.5 rounded-full border dark:border-dark bg-white dark:bg-dark2">
@@ -45,7 +30,7 @@ const Searchbar = () => {
         {users?.length > 0 && searchValue ? (
           <div>
             <h2 className="font-bold text-lg">
-              Search &ldquo; {searchValue} &rdquo;
+              Search Results for &ldquo; {searchValue} &rdquo;
             </h2>
             <div className="bg-gray-100 dark:bg-dark rounded-lg py-2 my-6 border">
               {users?.map((user) => (
