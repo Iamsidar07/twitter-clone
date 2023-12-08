@@ -470,7 +470,7 @@ export const appRouter = router({
         query: z.string(),
       }),
     )
-    .query(async ({ input }) => {
+    .mutation(async ({ input }) => {
       const { query } = input;
 
       const users = await db.user.findMany({

@@ -9,12 +9,26 @@ const Searchbar = () => {
   const {
     data: users = [],
     isLoading,
+    mutate
   } = useSearchTwitter(searchValue);
 
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
-  }, []);
+    const searchTwitterFunc = debounce(() => mutate({
+      query: searchValue
+    }), 500)
+    searchTwitterFunc()
+  }, [mutate, searchValue]);
+
+  const debounce = (fn: Function, ms = 500) => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    return function (this: any, ...args: any[]) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => fn.apply(this, args), ms);
+    };
+  };
+
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="flex items-center gap-x-3 py-2.5 rounded-full border dark:border-dark bg-white dark:bg-dark2">

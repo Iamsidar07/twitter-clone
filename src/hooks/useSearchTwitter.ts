@@ -1,9 +1,7 @@
 import { trpc } from "@/app/_trpc/client";
 
 const useSearchTwitter = (query: string) => {
-  const { data, isLoading, error, refetch } = trpc.searchTwitter.useQuery(
-    { query },
-  );
-  return { data, isLoading, error, refetch }
+  const { data, isLoading, error, mutate } = trpc.searchTwitter.useMutation();
+  return { data, isLoading, error, mutate }
 };
 export default useSearchTwitter;
